@@ -1,0 +1,155 @@
+﻿<Window x:Class="EasyEggs.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Easy Eggs - Enok, the Egg Entrepreneur" 
+        Height="685" Width="500"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Title -->
+        <TextBlock Grid.Row="0" 
+                   Text="🍳 Easy Eggs" 
+                   FontSize="24" FontWeight="Bold" 
+                   HorizontalAlignment="Center" 
+                   Margin="0,0,0,10"/>
+
+        <TextBlock Grid.Row="1" 
+                   Text="Enok, the Egg Entrepreneur" 
+                   FontSize="14" FontStyle="Italic"
+                   HorizontalAlignment="Center" 
+                   Margin="0,0,0,25"/>
+
+        <!-- Input Section -->
+        <GroupBox Grid.Row="2" Header="Enter the following information" Margin="0,0,0,15">
+            <StackPanel Margin="10">
+                <!-- Number of eggs bought -->
+                <StackPanel Orientation="Horizontal" Margin="0,5">
+                    <TextBlock Text="Number of eggs bought:" Width="180" VerticalAlignment="Center"/>
+                    <TextBox x:Name="txtEggsBought" Width="150" Text="130"/>
+                </StackPanel>
+
+                <!-- Number of eggs broken -->
+                <StackPanel Orientation="Horizontal" Margin="0,5">
+                    <TextBlock Text="Number of eggs broken:" Width="180" VerticalAlignment="Center"/>
+                    <TextBox x:Name="txtEggsBroken" Width="150" Text="1"/>
+                </StackPanel>
+
+                <!-- Cost price per egg -->
+                <StackPanel Orientation="Horizontal" Margin="0,5">
+                    <TextBlock Text="Cost price per egg:" Width="180" VerticalAlignment="Center"/>
+                    <TextBox x:Name="txtCostPricePerEgg" Width="150" Text="1.10"/>
+                </StackPanel>
+
+                <!-- Number of packets sold -->
+                <StackPanel Orientation="Horizontal" Margin="0,5">
+                    <TextBlock Text="Number of packets sold:" Width="180" VerticalAlignment="Center"/>
+                    <TextBox x:Name="txtPacketsSold" Width="150" Text="21"/>
+                </StackPanel>
+            </StackPanel>
+        </GroupBox>
+
+        <!-- Results Section -->
+        <GroupBox Grid.Row="3" Header="Your profit for the week is the following" Margin="0,0,0,15">
+            <StackPanel Margin="10">
+                <!-- Breakage Percentage -->
+                <StackPanel Orientation="Horizontal" Margin="0,8">
+                    <TextBlock Text="The percentage eggs that broke during packing is:" 
+                               Width="300" TextWrapping="Wrap"/>
+                    <TextBlock x:Name="lblBreakagePercentage" 
+                               Text="0%" 
+                               FontWeight="Bold" 
+                               Foreground="Red"
+                               Margin="10,0,0,0"
+                               Width="80"/>
+                </StackPanel>
+
+                <!-- Personal Use Eggs -->
+                <StackPanel Orientation="Horizontal" Margin="0,8">
+                    <TextBlock Text="The number of eggs that you took for your own use are:" 
+                               Width="300" TextWrapping="Wrap"/>
+                    <TextBlock x:Name="lblPersonalUseEggs" 
+                               Text="0" 
+                               FontWeight="Bold" 
+                               Foreground="Green"
+                               Margin="10,0,0,0"
+                               Width="80"/>
+                </StackPanel>
+
+                <!-- Additional Information (Optional but useful) -->
+                <Separator Margin="0,10,0,5"/>
+
+                <StackPanel Orientation="Horizontal" Margin="0,5">
+                    <TextBlock Text="Total Cost:" Width="150" FontWeight="Bold"/>
+                    <TextBlock x:Name="lblTotalCost" Text="$0.00" Foreground="DarkRed"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,5">
+                    <TextBlock Text="Total Revenue:" Width="150" FontWeight="Bold"/>
+                    <TextBlock x:Name="lblTotalRevenue" Text="$0.00" Foreground="DarkGreen"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,5">
+                    <TextBlock Text="Total Profit:" Width="150" FontWeight="Bold"/>
+                    <TextBlock x:Name="lblProfit" Text="$0.00" FontWeight="Bold" Foreground="Blue"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,5">
+                    <TextBlock Text="Total packets possible:" Width="150"/>
+                    <TextBlock x:Name="lblPacketsPossible" Text="0"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,5">
+                    <TextBlock Text="Loose eggs remaining:" Width="150"/>
+                    <TextBlock x:Name="lblLooseEggs" Text="0"/>
+                </StackPanel>
+            </StackPanel>
+        </GroupBox>
+
+        <!-- Buttons -->
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10">
+            <Button x:Name="btnCalculate" 
+                    Content="Calculate" 
+                    Width="100" Height="35" 
+                    Margin="5"
+                    Background="LightBlue"
+                    FontWeight="Bold"
+                    Click="btnCalculate_Click"/>
+
+            <Button x:Name="btnClear" 
+                    Content="Clear" 
+                    Width="100" Height="35" 
+                    Margin="5"
+                    Background="LightGray"
+                    FontWeight="Bold"
+                    Click="btnClear_Click"/>
+
+            <Button x:Name="btnExit" 
+                    Content="Exit" 
+                    Width="100" Height="35" 
+                    Margin="5"
+                    Background="LightCoral"
+                    FontWeight="Bold"
+                    Click="btnExit_Click"/>
+        </StackPanel>
+
+        <!-- Status Bar -->
+        <StatusBar Grid.Row="5" Margin="0,15,0,0">
+            <StatusBarItem>
+                <TextBlock x:Name="lblStatus" Text="Ready" Foreground="Gray"/>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>
