@@ -1,24 +1,24 @@
 # Ronin Apps & Projects 👨‍💻
 
 Hi! I'm Ronin Mauries – an aspiring software developer currently studying for my degree.  
-I built this portfolio to demonstrate my skills in **Java**, **Kotlin**, **Web Development** and soon.
+I built this portfolio to demonstrate my skills in **Java**, **Kotlin**, **Web Development** and **C#** soon.
 
 ## 🚀 Featured Projects
 
-### 1. Task Manager CLI (Java)
-- **What it does**: A command-line tool to organize daily tasks with deadlines & priorities.
-- **Tech**: Java 17, JUnit (testing)
-- **Try it**: `git clone ... && cd task-manager && java Main`
+### 1. Space Shooter (Java)
+- **What it does**: An in-game application where the player (spaceshooter) defends against protectiles adn enemies.
+- **Tech**: Java 
+- **Frameworks**: JUnit (Testing) 
 
-### 2. Personal Finance Tracker (Python)
-- **What it does**: Tracks expenses, generates monthly reports, and exports to CSV.
-- **Tech**: Python, pandas, matplotlib
-- **Preview**: [screenshot link]
+### 2. Privacy Monitor (C#)
+- **What it does**: Tracks information gathered by other applications, monitors file access, registry access and network connections.
+- **Tech**: C#, Windows Forms (WinForms)
+- **Framework**: .NET Framework 4.7.2, System.Windows.Forms
 
-### 3. Weather Dashboard (React)
-- **What it does**: Fetches live weather data from OpenWeatherMap API.
-- **Tech**: React, Axios, CSS Modules
-- **Live demo**: [Netlify link]
+### 3. Platformer Game (Java)
+- **What it does**: The player controls a round object to leap across different platforms with each level difficulty  increasing.
+- **Tech**: Java,
+- **Framework**: JUnit (Testing)
 
 ## 📚 What I'm Learning
 - Coding Langauge (C#)
