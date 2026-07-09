@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BossEnemy.cs" />
     <Compile Include="Bullet.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="Explosion.cs" />
@@ -57,7 +58,9 @@
     </Compile>
     <Compile Include="Game.cs" />
     <Compile Include="MathHelper.cs" />
+    <Compile Include="Particle.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="PowerUp.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">

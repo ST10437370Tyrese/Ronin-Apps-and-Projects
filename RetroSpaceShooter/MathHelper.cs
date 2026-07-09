@@ -1,4 +1,6 @@
-﻿namespace RetroSpaceShooter
+﻿using System;
+
+namespace RetroSpaceShooter
 {
     public static class MathHelper
     {
@@ -7,6 +9,18 @@
             if (value < min) return min;
             if (value > max) return max;
             return value;
+        }
+
+        public static float Clamp(float value, float min, float max)
+        {
+            if (value < min) return min;
+            if (value > max) return max;
+            return value;
+        }
+
+        public static int Lerp(int a, int b, float t)
+        {
+            return (int)(a + (b - a) * t);
         }
     }
 }
