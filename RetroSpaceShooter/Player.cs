@@ -14,8 +14,7 @@ namespace RetroSpaceShooter
         public bool MoveUp { get; set; }
         public bool MoveDown { get; set; }
         public bool IsShooting { get; set; }
-        private int screenWidth;
-        private int screenHeight;
+        public bool IsMoving => MoveLeft || MoveRight || MoveUp || MoveDown;
 
         public Player(int x, int y)
         {
@@ -30,14 +29,12 @@ namespace RetroSpaceShooter
             if (MoveUp) Y -= speed;
             if (MoveDown) Y += speed;
 
-            // Keep player within bounds
             X = MathHelper.Clamp(X, 0, 760);
             Y = MathHelper.Clamp(Y, 0, 560);
         }
 
         public void Draw(Graphics g)
         {
-            // Draw ship (retro pixel style)
             Pen greenPen = new Pen(Color.LimeGreen, 2);
 
             // Ship body (triangle)
@@ -58,9 +55,8 @@ namespace RetroSpaceShooter
             g.FillRectangle(Brushes.DarkGreen, X + 15, Y + 8, 10, 12);
             g.DrawRectangle(greenPen, X + 15, Y + 8, 10, 12);
 
-            // Engines
-            g.FillRectangle(Brushes.Orange, X + 12, Y + 37, 6, 4);
-            g.FillRectangle(Brushes.Orange, X + 22, Y + 37, 6, 4);
+            // Shield indicator (if any)
+            g.DrawRectangle(new Pen(Color.Cyan, 1), X - 2, Y - 2, width + 4, height + 4);
         }
 
         public Rectangle GetBounds()
