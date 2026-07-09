@@ -1,8 +1,9 @@
 ﻿🚀 Retro Space Shooter
 
 A complete, retro-style space shooter game built with C# and Windows Forms. This project is part of my portfolio to demonstrate C# game development skills, featuring power-ups, boss battles, particle effects, and procedurally generated audio.
-🎮 Game Overview
 
+
+🎮 Game Overview
 Retro Space Shooter is a classic arcade-style game where you control a spaceship defending against waves of enemies. The game features:
 
     Retro Pixel Graphics: Hand-drawn pixel-style sprites with a nostalgic feel
@@ -22,6 +23,7 @@ Retro Space Shooter is a classic arcade-style game where you control a spaceship
     Dynamic Difficulty: Enemy spawn rate increases over time
 
 🎯 Features
+
 Gameplay
 
     Player Controls: Arrow keys to move, Spacebar to shoot
@@ -69,13 +71,17 @@ Technical Features
     High Score Persistence: Saves/loads from local file
 
 🛠️ Technologies Used
-Technology	Purpose
-C#	Core game logic and programming language
-.NET Framework 4.7.2	Application framework
-Windows Forms	UI framework and rendering
-System.Drawing	Graphics and rendering
-System.Media	Audio playback
-BinaryWriter	WAV file generation
+C#	
+.NET Framework 4.7.2
+Application framework
+Windows Forms
+UI framework and rendering
+System.Drawing
+Graphics and rendering
+System.Media
+Audio playback
+BinaryWriter
+WAV file generation
 
 🎮 How to Play
 
