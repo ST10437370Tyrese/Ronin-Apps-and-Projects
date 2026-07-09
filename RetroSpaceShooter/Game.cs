@@ -50,6 +50,14 @@ namespace RetroSpaceShooter
             screenHeight = height;
             random = new Random();
             bossBullets = new List<Bullet>();
+
+            // Generate sound files if they don't exist
+            string soundDir = Path.Combine(Application.StartupPath, "Sounds");
+            if (!Directory.Exists(soundDir) || Directory.GetFiles(soundDir, "*.wav").Length == 0)
+            {
+                SoundGenerator.GenerateAllSounds();
+            }
+
             LoadHighScore();
             LoadSounds();
             InitializeGame();
@@ -89,11 +97,13 @@ namespace RetroSpaceShooter
         {
             try
             {
-                backgroundMusic = new SoundPlayer();
-                shootSound = new SoundPlayer();
-                explosionSound = new SoundPlayer();
-                powerUpSound = new SoundPlayer();
-                gameOverSound = new SoundPlayer();
+                string soundDir = Path.Combine(Application.StartupPath, "Sounds");
+
+                backgroundMusic = SoundGenerator.GetSoundPlayer(Path.Combine(soundDir, "background.wav"));
+                shootSound = SoundGenerator.GetSoundPlayer(Path.Combine(soundDir, "shoot.wav"));
+                explosionSound = SoundGenerator.GetSoundPlayer(Path.Combine(soundDir, "explosion.wav"));
+                powerUpSound = SoundGenerator.GetSoundPlayer(Path.Combine(soundDir, "powerup.wav"));
+                gameOverSound = SoundGenerator.GetSoundPlayer(Path.Combine(soundDir, "gameover.wav"));
             }
             catch
             {
@@ -134,6 +144,10 @@ namespace RetroSpaceShooter
                 highScore = score;
                 SaveHighScore();
             }
+
+            // Stop background music
+            try { backgroundMusic?.Stop(); } catch { }
+
             InitializeGame();
         }
 
@@ -141,7 +155,11 @@ namespace RetroSpaceShooter
         {
             try
             {
-                musicPlaying = true;
+                if (backgroundMusic != null)
+                {
+                    backgroundMusic.PlayLooping();
+                    musicPlaying = true;
+                }
             }
             catch { }
         }
@@ -150,14 +168,23 @@ namespace RetroSpaceShooter
         {
             try
             {
-                System.Media.SystemSounds.Beep.Play();
+                if (shootSound != null)
+                {
+                    shootSound.Play();
+                }
             }
             catch { }
         }
 
         private void PlayExplosionSound()
         {
-            try { }
+            try
+            {
+                if (explosionSound != null)
+                {
+                    explosionSound.Play();
+                }
+            }
             catch { }
         }
 
@@ -165,7 +192,10 @@ namespace RetroSpaceShooter
         {
             try
             {
-                System.Media.SystemSounds.Asterisk.Play();
+                if (powerUpSound != null)
+                {
+                    powerUpSound.Play();
+                }
             }
             catch { }
         }
@@ -174,7 +204,10 @@ namespace RetroSpaceShooter
         {
             try
             {
-                System.Media.SystemSounds.Hand.Play();
+                if (gameOverSound != null)
+                {
+                    gameOverSound.Play();
+                }
             }
             catch { }
         }
@@ -263,8 +296,8 @@ namespace RetroSpaceShooter
                 }
             }
 
-            // Update boss - FIXED: Check if boss exists before updating
-            if (boss != null)
+            // Update boss - CRITICAL FIX: Always check if boss is null before accessing
+            if (boss != null && bossActive)
             {
                 boss.Update();
 
@@ -277,10 +310,9 @@ namespace RetroSpaceShooter
                 {
                     // Boss shooting - create boss bullets
                     boss.Shoot();
-                    // Add boss bullets
+                    bossBullets.Add(new Bullet(boss.X + 10, boss.Y + 70));
                     bossBullets.Add(new Bullet(boss.X + 45, boss.Y + 70));
-                    bossBullets.Add(new Bullet(boss.X + 25, boss.Y + 70));
-                    bossBullets.Add(new Bullet(boss.X + 65, boss.Y + 70));
+                    bossBullets.Add(new Bullet(boss.X + 80, boss.Y + 70));
                 }
             }
 
@@ -354,8 +386,8 @@ namespace RetroSpaceShooter
                 }
             }
 
-            // Collision detection: Bullets vs Boss - FIXED: Check if boss exists
-            if (boss != null)
+            // Collision detection: Bullets vs Boss - CRITICAL FIX: Always check if boss is null
+            if (boss != null && bossActive)
             {
                 for (int i = bullets.Count - 1; i >= 0; i--)
                 {
@@ -365,7 +397,7 @@ namespace RetroSpaceShooter
                         explosions.Add(new Explosion(bullets[i].X, bullets[i].Y));
                         bullets.RemoveAt(i);
 
-                        // FIXED: Check if boss is dead after taking damage
+                        // Check if boss is dead after taking damage
                         if (boss.IsDead)
                         {
                             // Store boss position before nullifying
@@ -406,18 +438,19 @@ namespace RetroSpaceShooter
                     isGameOver = true;
                     PlayGameOverSound();
                     SaveHighScore();
-                    break;
+                    return; // Exit early to prevent further updates
                 }
             }
 
-            // Collision detection: Player vs Boss - FIXED: Check if boss exists
-            if (boss != null && player.GetBounds().IntersectsWith(boss.GetBounds()))
+            // Collision detection: Player vs Boss - CRITICAL FIX: Always check if boss is null
+            if (boss != null && bossActive && player.GetBounds().IntersectsWith(boss.GetBounds()))
             {
                 explosions.Add(new Explosion(player.X, player.Y));
                 PlayExplosionSound();
                 isGameOver = true;
                 PlayGameOverSound();
                 SaveHighScore();
+                return; // Exit early to prevent further updates
             }
 
             // Collision detection: Player vs Boss Bullets
@@ -430,7 +463,7 @@ namespace RetroSpaceShooter
                     isGameOver = true;
                     PlayGameOverSound();
                     SaveHighScore();
-                    break;
+                    return; // Exit early to prevent further updates
                 }
             }
 
@@ -509,7 +542,7 @@ namespace RetroSpaceShooter
             }
 
             // Draw boss only if it exists
-            if (boss != null)
+            if (boss != null && bossActive)
             {
                 boss.Draw(g);
             }
@@ -599,7 +632,15 @@ namespace RetroSpaceShooter
         public void Cleanup()
         {
             SaveHighScore();
-            try { }
+            try
+            {
+                backgroundMusic?.Stop();
+                backgroundMusic?.Dispose();
+                shootSound?.Dispose();
+                explosionSound?.Dispose();
+                powerUpSound?.Dispose();
+                gameOverSound?.Dispose();
+            }
             catch { }
         }
     }

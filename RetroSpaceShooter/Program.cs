@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace RetroSpaceShooter
@@ -16,6 +13,14 @@ namespace RetroSpaceShooter
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            // Generate sounds on startup if needed
+            try
+            {
+                SoundGenerator.GenerateAllSounds();
+            }
+            catch { }
+
             Application.Run(new Form1());
         }
     }
